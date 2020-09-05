@@ -1,7 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
-const PropertyListingModel = require("./models/property");
+const PropertyModel = require("./models/property");
+const PropertyController = require("./controllers/property");
 const TestModel = require("./models/test");
 
 require("dotenv").config();
@@ -14,7 +16,11 @@ const jsonParser = bodyParser.json();
 app.use(jsonParser);
 
 // initialise database
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoDB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+});
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -24,16 +30,10 @@ db.once("open", () => {
     console.log(`Surreal Estate API is running on :${PORT}`);
   });
 
-  app.post("/test", async (req, res) => {
-    await TestModel.create(req.body).then((response) => {
-      res.status(201).json(response);
-    });
-  });
-
-  app.get("/test", async (req, res) => {
-    const result = await TestModel.find();
-    res.status(200).json(result);
-  });
+  app.post("/PropertyListing", PropertyController.create);
+  app.get("/PropertyListing", PropertyController.list);
+  app.get("/PropertyListing/:id", PropertyController.getPropertyById);
+  app.patch("/PropertyListing/:id", PropertyController.updatedProperty);
 });
 
 module.exports = app;

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const PropertyListingSchema = new mongoose.Schema({
+const PropertySchema = new mongoose.Schema({
   title: { type: String, require: true },
   type: { type: String, require: true },
   bedrooms: { type: String, require: true },
@@ -10,9 +10,6 @@ const PropertyListingSchema = new mongoose.Schema({
   email: { type: String, require: true },
 });
 
-const PropertyListingModel = mongoose.model(
-  "PropertyListing",
-  PropertyListingSchema
-);
+const PropertyModel = mongoose.model("PropertyListing", PropertySchema);
 
-module.exports = PropertyListingModel;
+module.exports = PropertyModel;
