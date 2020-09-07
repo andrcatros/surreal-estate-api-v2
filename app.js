@@ -4,7 +4,8 @@ const bodyParser = require("body-parser");
 
 const PropertyModel = require("./models/property");
 const PropertyController = require("./controllers/property");
-const TestModel = require("./models/test");
+
+const PropertyRouter = require("./routes/property");
 
 require("dotenv").config();
 const PORT = process.env.PORT || 3000;
@@ -30,10 +31,7 @@ db.once("open", () => {
     console.log(`Surreal Estate API is running on :${PORT}`);
   });
 
-  app.post("/PropertyListing", PropertyController.create);
-  app.get("/PropertyListing", PropertyController.list);
-  app.get("/PropertyListing/:id", PropertyController.getPropertyById);
-  app.patch("/PropertyListing/:id", PropertyController.updatedProperty);
+  app.use("/PropertyListing", PropertyRouter);
 });
 
 module.exports = app;
