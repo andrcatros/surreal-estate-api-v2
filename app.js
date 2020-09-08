@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const PropertyRouter = require("./routes/property");
+const FavouriteRouter = require("./routes/favourite");
 
 require("dotenv").config();
 const PORT = process.env.PORT || 3000;
@@ -33,6 +34,7 @@ db.once("open", () => {
   });
 
   app.use("/api/v2/PropertyListing", PropertyRouter);
+  app.use("/api/v2/Favourite", FavouriteRouter);
 });
 
 module.exports = app;
