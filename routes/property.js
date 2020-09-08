@@ -4,8 +4,8 @@ const PropertyController = require("../controllers/property");
 
 router
   .post("/", PropertyController.create)
-  .get("/", PropertyController.list)
-  .get("/:id", PropertyController.getPropertyById)
+  .get("/:id", PropertyController.getById)
+  .get("/", PropertyController.query)
   .patch("/:id", PropertyController.updatedProperty)
   .delete("/:id", PropertyController.deleteProperty);
 

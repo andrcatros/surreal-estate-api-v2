@@ -1,9 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-
-const PropertyModel = require("./models/property");
-const PropertyController = require("./controllers/property");
+const cors = require("cors");
 
 const PropertyRouter = require("./routes/property");
 
@@ -15,6 +13,9 @@ const app = express();
 
 const jsonParser = bodyParser.json();
 app.use(jsonParser);
+
+app.use(cors({ credentials: true, origin: true }));
+app.options("*", cors());
 
 // initialise database
 mongoose.connect(mongoDB, {
@@ -31,7 +32,7 @@ db.once("open", () => {
     console.log(`Surreal Estate API is running on :${PORT}`);
   });
 
-  app.use("/PropertyListing", PropertyRouter);
+  app.use("/api/v2/PropertyListing", PropertyRouter);
 });
 
 module.exports = app;
