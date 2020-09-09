@@ -19,3 +19,12 @@ exports.query = (req, res) => {
       }
     });
 };
+
+exports.delete = (req, res) => {
+  const id = req.params.id;
+  FavouriteModel.findByIdAndRemove(id)
+    .then((removed) => res.status(200).json(removed))
+    .catch((err) =>
+      res.status(400).json({ error: "Favourite could not be deleted" })
+    );
+};
