@@ -9,11 +9,13 @@ exports.create = (req, res) => {
 };
 
 exports.query = (req, res) => {
-  FavouriteModel.find({}).then((favourites) => {
-    if (favourites) {
-      res.status(200).json(favourites);
-    } else {
-      res.status(404).json({ error: "Favourites not found." });
-    }
-  });
+  FavouriteModel.find({})
+    .populate("propertyListing")
+    .then((favourites) => {
+      if (favourites) {
+        res.status(200).json(favourites);
+      } else {
+        res.status(404).json({ error: "Favourites not found." });
+      }
+    });
 };
