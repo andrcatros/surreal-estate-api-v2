@@ -1,9 +1,14 @@
 const PropertyModel = require("../models/property");
 
 exports.create = (req, res) => {
-  PropertyModel.create(req.body).then((property) =>
-    res.status(201).json(property)
-  );
+  const img = req.file.filename;
+  console.log(req.file);
+  console.log(img);
+  const params = { ...req.body, img: img };
+  console.log(params);
+  PropertyModel.create(params)
+    .then((property) => res.status(201).json(property))
+    .catch((err) => res.status(400).json(err));
 };
 
 exports.getById = (req, res) => {
@@ -48,7 +53,6 @@ exports.deleteProperty = (req, res) => {
 
 exports.queryByLocation = (req, res) => {
   const query = req.params.location;
-  console.log("i'm in query by location");
   PropertyModel.find({ city: query })
     .then((result) => res.status(200).json(result))
     .catch((err) => console.log(err));
