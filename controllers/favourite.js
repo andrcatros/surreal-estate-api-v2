@@ -1,11 +1,19 @@
 const FavouriteModel = require("../models/favourite");
 
 exports.create = (req, res) => {
-  FavouriteModel.create(req.body)
-    .then((favourite) => {
-      res.status(201).json(favourite);
-    })
-    .catch((err) => res.status(404).json(err));
+  const propertyId = req.body.propertyListing;
+
+  FavouriteModel.find({ propertyListing: propertyId }).then((response) => {
+    if (response.length === 0) {
+      FavouriteModel.create(req.body)
+        .then((favourite) => {
+          res.status(201).json(favourite);
+        })
+        .catch((err) => res.status(404).json(err));
+    } else {
+      res.status(200).json({ message: "Favourite has already been added" });
+    }
+  });
 };
 
 exports.query = (req, res) => {
