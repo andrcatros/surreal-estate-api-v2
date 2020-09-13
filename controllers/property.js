@@ -4,7 +4,7 @@ exports.create = async (req, res) => {
   let img;
 
   if (req.file) {
-    img = `/public/images/${req.file.filename}-${Date.now()}`;
+    img = `/images/${req.file.filename}`;
   } else {
     img = "default";
   }

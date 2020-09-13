@@ -35,6 +35,7 @@ db.once("open", () => {
     console.log(`Surreal Estate API is running on :${PORT}`);
   });
 
+  app.use("/api/v2/Static", express.static("public"));
   app.use("/api/v2/PropertyListing", PropertyRouter);
   app.use("/api/v2/Favourite", FavouriteRouter);
 });
