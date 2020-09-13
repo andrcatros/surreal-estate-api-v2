@@ -1,11 +1,15 @@
 const PropertyModel = require("../models/property");
 
-exports.create = (req, res) => {
-  const img = req.file.filename;
-  console.log(req.file);
-  console.log(img);
+exports.create = async (req, res) => {
+  let img;
+
+  if (req.file) {
+    img = `/public/images/${req.file.filename}-${Date.now()}`;
+  } else {
+    img = "default";
+  }
+
   const params = { ...req.body, img: img };
-  console.log(params);
   PropertyModel.create(params)
     .then((property) => res.status(201).json(property))
     .catch((err) => res.status(400).json(err));

@@ -3,12 +3,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const multer = require("multer");
-
 const PropertyRouter = require("./routes/property");
 const FavouriteRouter = require("./routes/favourite");
-
-const PropertyController = require("./controllers/property");
 
 require("dotenv").config();
 const PORT = process.env.PORT || 3000;
@@ -41,8 +37,6 @@ db.once("open", () => {
 
   app.use("/api/v2/PropertyListing", PropertyRouter);
   app.use("/api/v2/Favourite", FavouriteRouter);
-
-  //  app.post("/upload", upload.single("img"), PropertyController.create);
 });
 
 module.exports = app;

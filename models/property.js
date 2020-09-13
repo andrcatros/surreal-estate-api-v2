@@ -8,10 +8,7 @@ const PropertySchema = new mongoose.Schema({
   price: { type: Number, require: true },
   city: { type: String, require: true },
   email: { type: String, require: true },
-  img: {
-    data: Buffer,
-    contentType: String,
-  },
+  img: { type: String, require: true },
 });
 
 const PropertyModel = mongoose.model("PropertyListing", PropertySchema);
